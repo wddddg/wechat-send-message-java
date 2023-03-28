@@ -1,15 +1,21 @@
 package cn.wddxhz.controller;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
 
-    @GetMapping("/test")
-    public String test(){
-        return "测试";
-    }
 
+    String AppId = "";  // 公众平台自己的appId
+    String AppSecret = "";  // AppSecret
+    @GetMapping("/login")
+    public String wxLogin(@RequestParam("code") String code) {
+        String url = "https://api.weixin.qq.com/sns/jscode2session?" +
+                "appid=" + AppId +
+                "&secret=" + AppSecret +
+                "&js_code=" + code +
+                "&grant_type=authorization_code";
+        return "123";
+    }
 }
