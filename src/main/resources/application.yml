@@ -4,3 +4,14 @@ server:
 wx:
   appid: wx229364b9cd249db0
   appsecret: 88e9347f534bdf2bbc9678b8a0d3542f
+
+spring:
+  datasource:
+    name: root
+    password: 2600858
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wechat-send-message?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=false
+    #指定数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置
+#    druid:
