@@ -1,2 +1,6 @@
 server:
   port: 8081
+
+wx:
+  appid: wx229364b9cd249db0
+  appsecret: 88e9347f534bdf2bbc9678b8a0d3542f

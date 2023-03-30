@@ -2,6 +2,10 @@ package cn.wddxhz.controller;
 
 
 import cn.wddxhz.model.User;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +17,10 @@ import java.nio.charset.StandardCharsets;
 public class UserController {
 
 
-    String AppId = "wx229364b9cd249db0";  // 公众平台自己的appId
-    String AppSecret = "88e9347f534bdf2bbc9678b8a0d3542f";  // AppSecret
+    @Value("${wx.appid}")
+    private String AppId = "";  // 公众平台自己的appId
+    @Value("${wx.appsecret}")
+    private String AppSecret = "";  // AppSecret
     @GetMapping("/login")
     public String wxLogin(@RequestParam("code") String code) {
         RestTemplate restTemplate = new RestTemplate();
@@ -30,9 +36,12 @@ public class UserController {
         headers.setContentType(MediaType.parseMediaType("application/json;charset=UTF-8"));
         HttpEntity<String> entity = new HttpEntity<String>(headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        response.getBody();
-//        User user = new User();
-//        user.setOpenid(response.openid);
+        String responseStr = response.getBody();
+        JSONObject jsonObject = JSON.parseObject(responseStr);
+        String accessToken = jsonObject.getString("session_key");
+        String openid = jsonObject.getString("openid");
+
+
 
         return "123";
     }
