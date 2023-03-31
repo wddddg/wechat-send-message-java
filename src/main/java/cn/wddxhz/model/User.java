@@ -9,5 +9,4 @@ public class User {
     private String openid;
     private String sessionKey;
     private Integer messageCount;
-
 }
