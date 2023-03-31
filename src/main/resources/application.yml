@@ -10,7 +10,14 @@ spring:
     name: root
     password: 2600858
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/wechat-send-message?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/wechat_send_message?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=false
     #指定数据源
     type: com.alibaba.druid.pool.DruidDataSource
     #druid相关配置
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  #目的是为了省略resultType里的代码量
+  type-aliases-package: cn.wddxhz.model
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
