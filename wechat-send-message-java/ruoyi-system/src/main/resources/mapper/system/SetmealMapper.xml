@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SetmealMapper">
+
+	<resultMap type="Setmeal" id="SetmealResult">
+		<result property="createBy"   column="create_by"   />
+		<result property="createTime" column="create_time" />
+		<result property="updateBy"   column="update_by"   />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<select id="queryList" resultMap="SetmealResult">
+		select * from setmeal
+		<where>
+			<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+				AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+			</if>
+			<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+			</if>
+		</where>
+		order by create_time
+	</select>
+
+	<insert id="insertSetmeal" parameterType="Setmeal" useGeneratedKeys="true" keyProperty="id">
+		insert into setmeal
+		(price, number, remark, enable, create_by, create_time, update_by, update_time)
+		values (#{price}, #{number}, #{remark}, #{enable}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+	</insert>
+
+</mapper> 
