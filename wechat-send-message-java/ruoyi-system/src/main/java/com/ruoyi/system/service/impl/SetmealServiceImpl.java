@@ -27,4 +27,14 @@ public class SetmealServiceImpl implements SetmealService {
         int rows = setmealMapper.insertSetmeal(setmeal);
         return rows;
     }
+
+    @Override
+    public void update(Setmeal setmeal) {
+        setmealMapper.updateSetmeal(setmeal);
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        setmealMapper.deleteSetmeal(ids);
+    }
 }

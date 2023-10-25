@@ -14,6 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryList" resultMap="SetmealResult">
 		select * from setmeal
 		<where>
+			<if test="price != null and price != ''"><!-- 开始时间检索 -->
+				AND price like concat('%', #{price}, '%')
+			</if>
 			<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
 				AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
 			</if>
@@ -29,5 +32,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(price, number, remark, enable, create_by, create_time, update_by, update_time)
 		values (#{price}, #{number}, #{remark}, #{enable}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
 	</insert>
+
+	<update id="updateSetmeal" parameterType="Setmeal">
+		update setmeal
+		<set>
+			<if test="price != null">
+				price = #{price},
+			</if>
+			<if test="number != null">
+				number = #{number},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="enable != null">
+				enable = #{enable},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteSetmeal" parameterType="Long">
+		delete from setmeal where id in
+		<foreach collection="array" item="setmealId" open="(" separator="," close=")">
+			#{setmealId}
+		</foreach>
+	</delete>
 
 </mapper> 

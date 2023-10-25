@@ -9,6 +9,6 @@ public class AutoFillConstant {
      */
     public static final String SET_CREATE_TIME = "setCreateTime";
     public static final String SET_UPDATE_TIME = "setUpdateTime";
-    public static final String SET_CREATE_BY = "setCreatebY";
-    public static final String SET_UPDATE_BY = "setUpdatebY";
+    public static final String SET_CREATE_BY = "setCreateBy";
+    public static final String SET_UPDATE_BY = "setUpdateBy";
 }

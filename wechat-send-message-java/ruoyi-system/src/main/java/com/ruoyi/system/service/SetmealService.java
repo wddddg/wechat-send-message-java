@@ -8,4 +8,8 @@ public interface SetmealService {
     List<Setmeal> selectSetmealDataList(Setmeal setmeal);
 
     int insert(Setmeal setmeal);
+
+    void update(Setmeal setmeal);
+
+    void delete(Long[] ids);
 }

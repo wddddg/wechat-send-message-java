@@ -11,4 +11,9 @@ public interface SetmealMapper {
 
     @AutoFill(OperationType.INSERT)
     int insertSetmeal(Setmeal setmeal);
+
+    @AutoFill(OperationType.UPDATE)
+    int updateSetmeal(Setmeal setmeal);
+
+    int deleteSetmeal(Long[] ids);
 }

@@ -8,10 +8,7 @@ import com.ruoyi.system.service.SetmealService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +16,6 @@ import java.util.List;
 @RequestMapping("/setmeal")
 @Api("套餐管理")
 public class SetmealController extends BaseController {
-
 
     @Autowired
     private SetmealService setmealService;
@@ -35,9 +31,24 @@ public class SetmealController extends BaseController {
 
     @PostMapping("/add")
     @ApiOperation("新增套餐")
-    public AjaxResult add(Setmeal setmeal)
+    public AjaxResult add(@RequestBody Setmeal setmeal)
     {
-        setmeal.setCreateBy(getUsername());
         return toAjax(setmealService.insert(setmeal));
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("修改套餐")
+    public AjaxResult update(@RequestBody Setmeal setmeal)
+    {
+        setmealService.update(setmeal);
+        return success();
+    }
+
+    @DeleteMapping("/{ids}")
+    @ApiOperation("删除套餐")
+    public AjaxResult delete(@PathVariable Long[] ids)
+    {
+        setmealService.delete(ids);
+        return success();
     }
 }

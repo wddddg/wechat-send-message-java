@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Aspect
 @Component
@@ -38,15 +40,15 @@ public class AutoFillAspect {
         }
 
         Object arg = args[0];
-        LocalDateTime time = LocalDateTime.now();
+        Date time = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());;
         String username = getLoginUser().getUsername();
 
         if (operationType == OperationType.INSERT) {
 
             try {
-                Method setCreateTime = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
+                Method setCreateTime = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, Date.class);
                 Method setCreateUser = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_BY, String.class);
-                Method setUpdateTime = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
+                Method setUpdateTime = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, Date.class);
                 Method setUpdateUser = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_BY, String.class);
 
                 setCreateTime.invoke(arg, time);
@@ -60,7 +62,7 @@ public class AutoFillAspect {
         } else if (operationType == OperationType.UPDATE) {
 
             try {
-                Method setUpdateTime = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
+                Method setUpdateTime = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, Date.class);
                 Method setUpdateUser = arg.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_BY, String.class);
                 setUpdateTime.invoke(arg, time);
                 setUpdateUser.invoke(arg, username);
