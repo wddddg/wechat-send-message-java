@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController("managementSetmeal")
-@RequestMapping("/setmeal")
+@RequestMapping("/management/setmeal")
 @Api("套餐管理")
 public class SetmealController extends BaseController {
 

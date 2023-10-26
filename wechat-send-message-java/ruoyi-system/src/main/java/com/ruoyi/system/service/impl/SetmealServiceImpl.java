@@ -16,9 +16,7 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     public List<Setmeal> selectSetmealDataList(Setmeal setmeal) {
-
         List<Setmeal> list = setmealMapper.queryList(setmeal);
-
         return list;
     }
 
