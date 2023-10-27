@@ -26,7 +26,7 @@ public class Setmeal extends BaseEntity {
 
     private String remark;
 
-    private int enable;
+    private Integer enable;
 
     /** 创建者 */
     private String createBy;

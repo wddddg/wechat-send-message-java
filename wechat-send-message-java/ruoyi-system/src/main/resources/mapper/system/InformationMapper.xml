@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND status = #{status}
 			</if>
 			<if test="params.beginAccessTime != null and params.beginAccessTime != ''"><!-- 开始时间检索 -->
-				AND date_format(params.endAccessTime,'%y%m%d') &gt;= date_format(#{params.beginAccessTime},'%y%m%d')
+				AND date_format(#{params.endAccessTime},'%y%m%d') &lt;= date_format(#{params.beginAccessTime},'%y%m%d')
 			</if>
 		</where>
 		order by create_time

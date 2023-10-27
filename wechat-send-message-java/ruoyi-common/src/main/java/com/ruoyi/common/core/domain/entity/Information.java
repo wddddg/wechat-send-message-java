@@ -25,9 +25,9 @@ public class Information extends BaseEntity {
 
     private String informationContext;
 
-    private int isAnonymity;
+    private Integer isAnonymity;
 
-    private int status;
+    private Integer status;
 
     /** 发送时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
