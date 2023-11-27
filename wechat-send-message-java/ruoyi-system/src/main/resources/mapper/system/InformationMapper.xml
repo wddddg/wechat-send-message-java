@@ -25,10 +25,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND status = #{status}
 			</if>
 			<if test="params.beginAccessTime != null and params.beginAccessTime != ''"><!-- 开始时间检索 -->
-				AND date_format(#{params.endAccessTime},'%y%m%d') &lt;= date_format(#{params.beginAccessTime},'%y%m%d')
+				AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginAccessTime},'%y%m%d')
+			</if>
+			<if test="params.endAccessTime != null and params.endAccessTime != ''"><!-- 结束时间检索 -->
+				AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endAccessTime},'%y%m%d')
 			</if>
 		</where>
 		order by create_time
 	</select>
+
+	<update id="updateInformation" parameterType="Information">
+		update information
+		<set>
+			<if test="createBy != null">
+				create_by = #{createBy},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="price != null">
+				price = #{price},
+			</if>
+			<if test="isAnonymity != null">
+				is_anonymity = #{isAnonymity},
+			</if>
+			<if test="informationContext != null">
+				information_context = #{informationContext},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteInformation">
+		delete from information where id in
+		<foreach collection="array" separator="," open="(" close=")" item="id">
+			${id}
+		</foreach>
+	</delete>
 
 </mapper> 

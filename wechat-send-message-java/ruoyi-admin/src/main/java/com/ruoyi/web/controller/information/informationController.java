@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.information;
 
 import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.entity.Information;
 import com.ruoyi.common.core.domain.entity.Setmeal;
 import com.ruoyi.common.core.page.TableDataInfo;
@@ -8,9 +9,7 @@ import com.ruoyi.system.service.InformationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,8 +29,24 @@ public class informationController extends BaseController {
     public TableDataInfo list(Information information)
     {
         startPage();
-        List<Setmeal> list = informationService.selectInformationDataList(information);
+        List<Information> list = informationService.selectInformationDataList(information);
         return getDataTable(list);
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("修改信息")
+    public AjaxResult update(@RequestBody Information information) {
+        informationService.update(information);
+        return success();
+    }
+
+
+    @DeleteMapping("/{ids}")
+    @ApiOperation("删除信息")
+    public AjaxResult delete(@PathVariable Long[] ids)
+    {
+        informationService.delete(ids);
+        return success();
     }
 
 }

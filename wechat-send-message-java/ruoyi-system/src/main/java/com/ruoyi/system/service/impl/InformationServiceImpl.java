@@ -16,8 +16,18 @@ public class InformationServiceImpl implements InformationService {
     private InformationMapper informationMapper;
 
     @Override
-    public List<Setmeal> selectInformationDataList(Information information) {
-        List<Setmeal> list = informationMapper.queryList(information);
+    public List<Information> selectInformationDataList(Information information) {
+        List<Information> list = informationMapper.queryList(information);
         return list;
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        informationMapper.deleteInformation(ids);
+    }
+
+    @Override
+    public void update(Information information) {
+        informationMapper.updateInformation(information);
     }
 }
