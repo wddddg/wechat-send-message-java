@@ -1,4 +1,4 @@
-package com.ruoyi.framework.web.service;
+package com.ruoyi.framework.datasource.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

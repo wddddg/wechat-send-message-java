@@ -1,11 +1,19 @@
-package com.ruoyi.framework.web.service;
+package com.ruoyi.framework.datasource.service;
 
 import javax.annotation.Resource;
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.ruoyi.common.core.domain.entity.WechatUser;
+import com.ruoyi.common.properties.WeChatProperties;
+import com.ruoyi.common.utils.HttpClientUtil;
+import com.ruoyi.system.service.WechatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import com.ruoyi.common.constant.CacheConstants;
 import com.ruoyi.common.constant.Constants;
@@ -29,6 +37,8 @@ import com.ruoyi.framework.security.context.AuthenticationContextHolder;
 import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysUserService;
 
+import java.util.HashMap;
+
 /**
  * 登录校验方法
  * 
@@ -37,6 +47,9 @@ import com.ruoyi.system.service.ISysUserService;
 @Component
 public class SysLoginService
 {
+
+    public static final String WX_LOGIN_ADDRES = "https://api.weixin.qq.com/sns/jscode2session";
+
     @Autowired
     private TokenService tokenService;
 
@@ -50,7 +63,13 @@ public class SysLoginService
     private ISysUserService userService;
 
     @Autowired
+    private WechatUserService wechatUserService;
+
+    @Autowired
     private ISysConfigService configService;
+
+    @Autowired
+    private WeChatProperties weChatProperties;
 
     /**
      * 登录验证
@@ -98,6 +117,30 @@ public class SysLoginService
         recordLoginInfo(loginUser.getUserId());
         // 生成token
         return tokenService.createToken(loginUser);
+    }
+
+    public String wxLogin(String code) {
+        String openid = getOpenid(code);
+        WechatUser user = wechatUserService.getUserInfoByOpenId(openid);
+        LoginUser loginUser = new LoginUser(user);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(openid, user.getId());
+        authenticationToken.setDetails(loginUser);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        // 生成token
+        return tokenService.createToken(loginUser);
+    }
+
+    private String getOpenid(String code) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("appid", weChatProperties.getAppid());
+        map.put("secret", weChatProperties.getSecret());
+        map.put("js_code", code);
+        map.put("grant_type", "authorization_code");
+        String json = HttpClientUtil.doGet(WX_LOGIN_ADDRES, map);
+
+        JSONObject jsonObject = JSON.parseObject(json);
+        String openid = jsonObject.getString("openid");
+        return openid;
     }
 
     /**

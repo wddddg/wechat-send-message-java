@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import java.util.Set;
+
+import com.ruoyi.common.core.domain.model.WxLoginBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +15,8 @@ import com.ruoyi.common.core.domain.entity.SysMenu;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.domain.model.LoginBody;
 import com.ruoyi.common.utils.SecurityUtils;
-import com.ruoyi.framework.web.service.SysLoginService;
-import com.ruoyi.framework.web.service.SysPermissionService;
+import com.ruoyi.framework.datasource.service.SysLoginService;
+import com.ruoyi.framework.datasource.service.SysPermissionService;
 import com.ruoyi.system.service.ISysMenuService;
 
 /**
@@ -47,6 +49,22 @@ public class SysLoginController
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
                 loginBody.getUuid());
+        ajax.put(Constants.TOKEN, token);
+        return ajax;
+    }
+
+    /**
+     * 微信登录方法
+     *
+     * @param wxLoginBody 登录code
+     * @return 结果
+     */
+    @PostMapping("/applet/login")
+    public AjaxResult wxLogin(@RequestBody WxLoginBody wxLoginBody)
+    {
+        // 生成令牌
+        String token = loginService.wxLogin(wxLoginBody.getCode());
+        AjaxResult ajax = AjaxResult.success();
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }

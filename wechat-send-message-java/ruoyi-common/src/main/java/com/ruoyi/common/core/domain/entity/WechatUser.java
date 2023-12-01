@@ -38,6 +38,9 @@ public class WechatUser extends BaseEntity {
     //头像
     private String avatar;
 
+    //余额
+    private double balance;
+
     //注册时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;

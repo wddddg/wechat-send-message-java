@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.WechatUserMapper">
 
-	<resultMap type="WechatUserVO" id="WechatUserResult">
+	<resultMap type="WechatUser" id="WechatUserResult">
 		<result property="idNumber" column="id_number" />
 		<result property="createTime" column="create_time" />
 	</resultMap>
@@ -12,6 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="WechatUserRechargeVO" id="WechatUserRechargeResult">
 		<result property="userId" column="user_id" />
 		<result property="rechargeAmount" column="recharge_amount" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+
+	<resultMap type="WechatUseConsumptionVO" id="WechatUserConsumptionResult">
+		<result property="userId" column="user_id" />
+		<result property="informationId" column="information_id" />
 		<result property="createTime" column="create_time" />
 	</resultMap>
 
@@ -52,5 +58,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 		order by r.create_time desc
 	</select>
+
+	<select id="getWechatUserConsumptionRecord" resultMap="WechatUserConsumptionResult">
+		select c.*, u.name as userName, u.phone as userPhone, u.avatar as userAvatar, i.information_context as informationContent, i.status as informationStatus from user_consumption_record c left outer join user u on c.user_id = u.id right outer join information i on c.information_id = i.id
+		<where>
+			<if test="name != null and name != ''">
+				AND u.name like concat('%', #{name}, '%')
+			</if>
+			<if test="phone != null and phone != ''">
+				AND u.phone like concat('%', #{phone}, '%')
+			</if>
+			<if test="params.beginCreateTime != null and params.beginCreateTime != ''"><!-- 开始时间检索 -->
+				AND date_format(c.create_time,'%y%m%d') &gt;= date_format(#{params.beginCreateTime},'%y%m%d')
+			</if>
+			<if test="params.endCreateTime != null and params.endCreateTime != ''"><!-- 结束时间检索 -->
+				AND date_format(c.create_time,'%y%m%d') &lt;= date_format(#{params.endCreateTime},'%y%m%d')
+			</if>
+		</where>
+		order by c.create_time desc
+	</select>
+
+	<select id="getUserInfoByOpenId" resultMap="WechatUserResult">
+		select * from user where openid = #{openid}
+	</select>
+
+	<update id="updateWechatUser" parameterType="WechatUser">
+		update user
+		<set>
+			<if test="idNumber != null">
+				id_number = #{idNumber},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="sex != null">
+				sex = #{sex},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateWechatUserBalance" parameterType="WechatUser">
+		update user_balance
+		<set>
+			<if test="idNumber != null">
+				balance = #{balance},
+			</if>
+		</set>
+		where user_id = #{id}
+	</update>
 
 </mapper> 

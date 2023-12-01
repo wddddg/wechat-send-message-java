@@ -4,7 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="365c7c6a-f701-42ea-8b0c-cd1f6176916e" name="变更" comment="" />
+    <list default="true" id="365c7c6a-f701-42ea-8b0c-cd1f6176916e" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/java/com/ruoyi/applet/controller/setmeal/SetmealController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/java/com/ruoyi/applet/controller/wechat/WxUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/core/domain/model/WxLoginBody.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/core/domain/vo/WechatUseConsumptionVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/properties/WeChatProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/utils/HttpClientUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/java/com/ruoyi/web/controller/system/SysLoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/java/com/ruoyi/web/controller/wechat/WxUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/java/com/ruoyi/web/controller/wechat/WxUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-admin/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/core/domain/entity/WechatUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/core/domain/entity/WechatUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/core/domain/model/LoginUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/core/domain/model/LoginUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-common/src/main/java/com/ruoyi/common/core/domain/vo/WechatUserVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-framework/src/main/java/com/ruoyi/framework/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-framework/src/main/java/com/ruoyi/framework/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-framework/src/main/java/com/ruoyi/framework/web/service/SysLoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-framework/src/main/java/com/ruoyi/framework/web/service/SysLoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/java/com/ruoyi/system/mapper/WechatUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/java/com/ruoyi/system/mapper/WechatUserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/java/com/ruoyi/system/service/WechatUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/java/com/ruoyi/system/service/WechatUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/WechatUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/java/com/ruoyi/system/service/impl/WechatUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/resources/mapper/system/WechatUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wechat-send-message-java/ruoyi-system/src/main/resources/mapper/system/WechatUserMapper.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,14 +48,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/java/poject/wechat-send-message/wechat-send-message-java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/java/poject/wechat-send-message/wechat-send-message-java&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -44,6 +65,7 @@
       <option name="presentableId" value="Default" />
       <updated>1697700460372</updated>
       <workItem from="1697700462175" duration="113000" />
+      <workItem from="1701393277545" duration="22000" />
     </task>
     <servers />
   </component>

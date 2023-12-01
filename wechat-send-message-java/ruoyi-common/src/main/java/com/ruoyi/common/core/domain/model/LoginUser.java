@@ -2,6 +2,7 @@ package com.ruoyi.common.core.domain.model;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.core.domain.entity.WechatUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
@@ -71,6 +72,16 @@ public class LoginUser implements UserDetails
      */
     private SysUser user;
 
+    private WechatUser wechatUser;
+
+    public WechatUser getWechatUser() {
+        return wechatUser;
+    }
+
+    public void setWechatUser(WechatUser wechatUser) {
+        this.wechatUser = wechatUser;
+    }
+
     public LoginUser()
     {
     }
@@ -79,6 +90,11 @@ public class LoginUser implements UserDetails
     {
         this.user = user;
         this.permissions = permissions;
+    }
+
+    public LoginUser(WechatUser wechatUser)
+    {
+        this.wechatUser = wechatUser;
     }
 
     public LoginUser(Long userId, Long deptId, SysUser user, Set<String> permissions)
@@ -123,13 +139,13 @@ public class LoginUser implements UserDetails
     @Override
     public String getPassword()
     {
-        return user.getPassword();
+        return user != null ? user.getPassword() : wechatUser.getOpenid();
     }
 
     @Override
     public String getUsername()
     {
-        return user.getUserName();
+        return user != null ? user.getUserName() : wechatUser.getOpenid();
     }
 
     /**
