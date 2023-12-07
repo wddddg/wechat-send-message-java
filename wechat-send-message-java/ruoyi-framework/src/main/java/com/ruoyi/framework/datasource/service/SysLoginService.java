@@ -37,6 +37,9 @@ import com.ruoyi.framework.security.context.AuthenticationContextHolder;
 import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysUserService;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -121,11 +124,28 @@ public class SysLoginService
 
     public String wxLogin(String code) {
         String openid = getOpenid(code);
+        if (openid == null) {
+            throw new ServiceException(Constants.LOGIN_FAIL);
+        }
+
         WechatUser user = wechatUserService.getUserInfoByOpenId(openid);
+
+        if (user == null) {
+            user = WechatUser.builder()
+                    .openid(openid)
+                    .createTime(DateUtils.getNowDate())
+                    .build();
+            Long userId = Long.valueOf(wechatUserService.addNewWehcatUser(user));
+            user.setId(userId);
+        }
+
         LoginUser loginUser = new LoginUser(user);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(openid, user.getId());
         authenticationToken.setDetails(loginUser);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+        AsyncManager.me().execute(AsyncFactory.recordLogininfor(user.getOpenid(), Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        recordLoginInfo(user.getId());
         // 生成token
         return tokenService.createToken(loginUser);
     }

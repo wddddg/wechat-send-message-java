@@ -3,7 +3,11 @@ package com.ruoyi.web.controller.system;
 import java.util.List;
 import java.util.Set;
 
+import com.ruoyi.common.core.domain.entity.WechatUser;
 import com.ruoyi.common.core.domain.model.WxLoginBody;
+import com.ruoyi.common.core.domain.vo.WechatUserVO;
+import com.ruoyi.system.service.InformationService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +39,9 @@ public class SysLoginController
 
     @Autowired
     private SysPermissionService permissionService;
+
+    @Autowired
+    private InformationService informationService;
 
     /**
      * 登录方法
@@ -86,6 +93,25 @@ public class SysLoginController
         ajax.put("user", user);
         ajax.put("roles", roles);
         ajax.put("permissions", permissions);
+        return ajax;
+    }
+
+    /**
+     * 获取微信用户信息
+     *
+     * @return 用户信息
+     */
+    @GetMapping("/applet/getInfo")
+    public AjaxResult getAppletInfo()
+    {
+        WechatUser user = SecurityUtils.getLoginUser().getWechatUser();
+        Integer sendMessageNumber = informationService.getCountByUserId(user.getId());
+
+        WechatUserVO wechatUserVO = new WechatUserVO();
+        BeanUtils.copyProperties(user, wechatUserVO);
+        wechatUserVO.setSendMessageNumber(sendMessageNumber);
+        AjaxResult ajax = AjaxResult.success();
+        ajax.put("user", wechatUserVO);
         return ajax;
     }
 

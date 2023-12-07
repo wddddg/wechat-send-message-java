@@ -4,6 +4,7 @@ import com.ruoyi.common.core.domain.dto.WechatUserDTO;
 import com.ruoyi.common.core.domain.entity.WechatUser;
 import com.ruoyi.common.core.domain.vo.WechatUseConsumptionVO;
 import com.ruoyi.common.core.domain.vo.WechatUserRechargeVO;
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.system.mapper.WechatUserMapper;
 import com.ruoyi.system.service.WechatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,11 @@ public class WechatUserServiceImpl implements WechatUserService {
     @Override
     public WechatUser getUserInfoByOpenId(String openid) {
         return wechatUserMapper.getUserInfoByOpenId(openid);
+    }
+
+    @Override
+    public int addNewWehcatUser(WechatUser user) {
+        user.setCreateTime(DateUtils.getNowDate());
+        return wechatUserMapper.addNewWehcatUser(user);
     }
 }

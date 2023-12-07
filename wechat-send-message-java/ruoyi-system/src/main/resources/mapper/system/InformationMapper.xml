@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="informationContext"   column="information_context"   />
 		<result property="isAnonymity"   column="is_anonymity"   />
 		<result property="accessTime"   column="access_time"   />
+		<result property="userId" column="user_id" />
 		<result property="createBy"   column="create_by"   />
 		<result property="createTime" column="create_time" />
 	</resultMap>
@@ -24,6 +25,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null"><!-- 状态 -->
 				AND status = #{status}
 			</if>
+			<if test="userId != null"><!-- 用户id -->
+				AND user_id = #{userId}
+			</if>
 			<if test="params.beginAccessTime != null and params.beginAccessTime != ''"><!-- 开始时间检索 -->
 				AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginAccessTime},'%y%m%d')
 			</if>
@@ -32,6 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 		order by create_time
+	</select>
+
+	<select id="getCountByUserId" resultType="Integer">
+		select count(id) from information where user_id = #{userId} and status = 1
 	</select>
 
 	<update id="updateInformation" parameterType="Information">

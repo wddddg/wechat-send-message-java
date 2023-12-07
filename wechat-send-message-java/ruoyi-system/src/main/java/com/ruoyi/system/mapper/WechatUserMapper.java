@@ -19,4 +19,6 @@ public interface WechatUserMapper {
     void updateWechatUserBalance(WechatUser wechatUser);
 
     WechatUser getUserInfoByOpenId(String openid);
+
+    int addNewWehcatUser(WechatUser user);
 }

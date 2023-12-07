@@ -11,4 +11,6 @@ public interface InformationMapper {
     void deleteInformation(Long[] ids);
 
     void updateInformation(Information information);
+
+    Integer getCountByUserId(Long userId);
 }

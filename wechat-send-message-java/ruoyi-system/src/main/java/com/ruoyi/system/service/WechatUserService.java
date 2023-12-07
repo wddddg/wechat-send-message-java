@@ -18,4 +18,6 @@ public interface WechatUserService {
     void updateWechaUser(WechatUser wechatUser);
 
     WechatUser getUserInfoByOpenId(String openid);
+
+    int addNewWehcatUser(WechatUser user);
 }

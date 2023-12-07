@@ -10,4 +10,10 @@ public interface InformationService {
     void delete(Long[] ids);
 
     void update(Information information);
+
+    Integer getCountByUserId(Long userId);
+
+    List<Information> selectInformationDataListByUser(Information information);
+
+    List<Information> getInformationByPhone(Information information);
 }
